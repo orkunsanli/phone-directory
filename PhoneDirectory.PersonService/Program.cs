@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PhoneDirectory.Shared.Data;
+using PhoneDirectory.Shared.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddOpenApi();
 // Configure DbContext
 builder.Services.AddDbContext<PhoneDirectoryDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register repositories
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 var app = builder.Build();
 
